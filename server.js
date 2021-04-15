@@ -29,6 +29,25 @@ app.get('/', function(req, res) {
 app.get('/about', function(req, res) {
     res.render('pages/about');
 });
+// new mascot page
+app.use(express.urlencoded({ extended: false }))
+app.get('/add-mascot', function(req, res) {
+    res.render('pages/form');
+
+});
+app.post('/add-mascot', (req, res) => {
+    const name = req.body.name
+    const organization = req.body.organization
+    const year = req.body.birth_year
+
+    mascots.push({
+        name : name,
+        organization : organization,
+        birth_year : year,
+    })
+
+    res.redirect('/')
+})
 
 app.listen(8080);
 console.log('8080 is the magic port');
